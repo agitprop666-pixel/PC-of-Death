@@ -1,0 +1,209 @@
+==============================================================
+  PC of Death  —  Death's Head Software
+  Scan time : 2026-05-16T06:22:58.855664
+  Report    : 2026-05-16 06:24:55
+==============================================================
+
+── SYSTEM INFORMATION ────────────────────────────────────────
+  Hostname              Dell
+  OS                    Windows
+  Release               10
+  Version               10.0.19045
+  Architecture          AMD64
+  Processor             Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
+  Python                3.14.0
+  Edition               Microsoft Windows 10 Pro
+  Uptime (hours)        64.6
+
+── RISK OVERVIEW ─────────────────────────────────────────────
+  Vulnerabilities (HIGH)   : 2
+  Warnings (MEDIUM / LOW)  : 8
+
+── VULNERABILITIES ───────────────────────────────────────────
+  1. [HIGH] firewall_private_disabled
+     Category : Firewall
+     Detail   : Windows Firewall is DISABLED for the Private profile
+     Fix      : Run: netsh advfirewall set privateprofile state on
+
+  2. [HIGH] firewall_public_disabled
+     Category : Firewall
+     Detail   : Windows Firewall is DISABLED for the Public profile
+     Fix      : Run: netsh advfirewall set publicprofile state on
+
+── WARNINGS ──────────────────────────────────────────────────
+  1. [MEDIUM] wuauserv_stopped
+     Category : Updates
+     Detail   : Windows Update service is stopped
+     Fix      : Start the Windows Update service: net start wuauserv
+
+  2. [MEDIUM] port_135_open
+     Category : Open Ports
+     Detail   : Port 135 (MSRPC) is OPEN — Windows RPC endpoint mapper — commonly targeted
+     Fix      : Firewall or disable port 135 if not required.
+
+  3. [MEDIUM] port_445_open
+     Category : Open Ports
+     Detail   : Port 445 (SMB) is OPEN — SMB file sharing — verify patched and firewalled
+     Fix      : Firewall or disable port 445 if not required.
+
+  4. [LOW] admin_shares_active
+     Category : Network
+     Detail   : Default admin shares (C$, ADMIN$) are active
+     Fix      : Disable via registry: HKLM\...\LanmanServer\Parameters\AutoShareWks=0
+
+  5. [MEDIUM] autorun_policy_absent
+     Category : AutoRun
+     Detail   : AutoRun Group Policy is not configured (may be enabled for removable media)
+     Fix      : Set NoDriveTypeAutoRun=0xFF via Group Policy or registry.
+
+  6. [MEDIUM] env_secret_exposed
+     Category : Environment
+     Detail   : Potential credential in environment variable: GOOGLE_APPLICATION_CREDENTIALS
+     Fix      : Use a secrets manager (Azure Key Vault, HashiCorp Vault) — never store credentials in environment variables.
+
+  7. [MEDIUM] credential_guard_inactive
+     Category : Credential Protection
+     Detail   : Credential Guard is not running — LSASS credentials are more exposed
+     Fix      : Enable via Device Guard Group Policy or Windows Security settings.
+
+  8. [MEDIUM] lsa_ppl_not_set
+     Category : Credential Protection
+     Detail   : LSA RunAsPPL is not configured — LSASS may be vulnerable to credential dumping
+     Fix      : Set HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RunAsPPL=1 and reboot.
+
+── RECOMMENDATIONS ───────────────────────────────────────────
+  1. Keep Windows and all software updated — enable automatic updates
+  2. Use a password manager and enable MFA on every account
+  3. Regularly back up data (offline + cloud), and test restores
+  4. Limit admin accounts — use standard user for day-to-day tasks
+  5. Enable audit logging and review Windows Event Viewer regularly
+  6. Segment your network — isolate critical and IoT devices
+  7. Use Windows Hello or hardware security keys where possible
+  8. Run periodic vulnerability scans and act on findings promptly
+  9. Enable Microsoft Defender Application Control (WDAC) in enterprises
+  10. Subscribe to CISA Known Exploited Vulnerabilities (KEV) alerts
+
+── FULL SCAN LOG ─────────────────────────────────────────────
+
+==============================================================
+  PC of Death  —  Death's Head Software
+  Scan started: 2026-05-16 06:22:58
+==============================================================
+
+
+── System Info ───────────────────────────────────────
+[*] Gathering system information…
+    Hostname: Dell
+    OS: Windows
+    Release: 10
+    Version: 10.0.19045
+    Architecture: AMD64
+    Processor: Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
+    Python: 3.14.0
+    Edition: Microsoft Windows 10 Pro
+    Uptime (hours): 64.6
+
+── Windows Defender/AV ───────────────────────────────
+[*] Checking Windows Defender / antivirus status…
+    [+] Antivirus enabled
+    [+] Real-time protection enabled
+    [*] Signature age: 0 days
+
+── Windows Firewall ──────────────────────────────────
+[*] Checking Windows Firewall status…
+    [+] Firewall ON (Domain profile)
+
+── Windows Update ────────────────────────────────────
+[*] Checking Windows Update status…
+
+── SMBv1 (EternalBlue) ───────────────────────────────
+[*] Checking SMBv1 status (EternalBlue / WannaCry surface)…
+    [+] SMBv1 is disabled
+
+── Remote Desktop (RDP) ──────────────────────────────
+[*] Checking Remote Desktop Protocol (RDP) settings…
+    [+] RDP is disabled
+
+── User Account Control ──────────────────────────────
+[*] Checking User Account Control (UAC)…
+    [+] UAC is enabled
+
+── Guest Account ─────────────────────────────────────
+[*] Checking Guest account status…
+    [+] Guest account is disabled
+
+── Password Policy ───────────────────────────────────
+[*] Checking local password policy…
+
+── BitLocker Encryption ──────────────────────────────
+[*] Checking BitLocker drive encryption…
+    [!] Could not determine BitLocker status
+
+── Secure Boot ───────────────────────────────────────
+[*] Checking Secure Boot (UEFI) status…
+    [*] Secure Boot status unavailable (non-UEFI or access denied)
+
+── Open Ports ────────────────────────────────────────
+[*] Scanning for risky open local ports…
+    [-] Port 21 (FTP) closed
+    [-] Port 23 (Telnet) closed
+    [-] Port 25 (SMTP) closed
+    [!] Port 135 (MSRPC) OPEN
+    [-] Port 137 (NetBIOS-NS) closed
+    [-] Port 139 (NetBIOS-SSN) closed
+    [!] Port 445 (SMB) OPEN
+    [-] Port 1433 (MSSQL) closed
+    [-] Port 1434 (MSSQL Browser) closed
+    [-] Port 3306 (MySQL) closed
+    [-] Port 3389 (RDP) closed
+    [-] Port 4444 (Metasploit) closed
+    [-] Port 5432 (PostgreSQL) closed
+    [-] Port 5900 (VNC) closed
+    [-] Port 5985 (WinRM HTTP) closed
+    [-] Port 5986 (WinRM HTTPS) closed
+    [-] Port 8080 (HTTP-Alt) closed
+    [-] Port 8443 (HTTPS-Alt) closed
+    [-] Port 9200 (Elasticsearch) closed
+    [-] Port 27017 (MongoDB) closed
+
+── Admin Shares ──────────────────────────────────────
+[*] Checking default administrative shares…
+
+── Remote Registry ───────────────────────────────────
+[*] Checking Remote Registry service…
+    [+] Remote Registry is Disabled
+
+── AutoRun / AutoPlay ────────────────────────────────
+[*] Checking AutoRun / AutoPlay policy…
+
+── Startup Entries ───────────────────────────────────
+[*] Checking startup registry entries for suspicious entries…
+    [*] Startup entry: SecurityHealth = %windir%\system32\SecurityHealthSystray.exe
+    [*] Startup entry: RtHDVCpl = "C:\Program Files\Realtek\Audio\HDA\RtkNGUI64.exe" /s
+    [*] Startup entry: Apoint = "C:\Program Files\DellTPad\Apoint.exe"
+    [*] Startup entry: Classic Start Menu = "C:\Program Files\Classic Shell\ClassicStartMenu.exe" -autorun
+    [*] Startup entry: AdobeAAMUpdater-1.0 = "C:\Program Files (x86)\Common Files\Adobe\OOBE\PDApp\UWA\UpdaterStartupUtility.
+    [*] Startup entry: ZeroTierUI = C:\Program Files (x86)\ZeroTier\One\zerotier_desktop_ui.exe
+    [*] Startup entry: Proton VPN = C:\Program Files\Proton\VPN\ProtonVPN.Launcher.exe "----ms-protocol:ms-encodedla
+    [+] No obviously suspicious startup entries detected
+
+── Environment Secrets ───────────────────────────────
+[*] Checking environment variables for exposed credentials…
+
+── Credential Guard ──────────────────────────────────
+[*] Checking Credential Guard / Device Guard status…
+
+── LSA / PPL Protection ──────────────────────────────
+[*] Checking LSA RunAsPPL (Protected Process Light)…
+
+── Spectre/Meltdown ──────────────────────────────────
+[*] Checking Spectre / Meltdown CPU mitigations…
+    [*] SpeculationControl module not installed — install via: Install-Module SpeculationControl
+
+==============================================================
+  DONE — 2 vulnerabilities  |  8 warnings
+==============================================================
+
+==============================================================
+  End of report  —  PC of Death  —  Death's Head Software
+==============================================================
